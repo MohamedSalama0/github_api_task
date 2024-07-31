@@ -1,45 +1,49 @@
-import 'dart:convert';
 
 class GithubUser {
   final String? name;
-  final int? id;
+  final int? userId;
   final String? avatarUrl;
   final String? htmlUrl;
+  final String? bio;
   final int? publicRepos;
   final int? publicGists;
   final int? followers;
   final int? following;
   GithubUser({
     this.name,
-    this.id,
+    this.userId,
     this.avatarUrl,
     this.htmlUrl,
+    this.bio,
     this.publicRepos,
     this.publicGists,
     this.followers,
     this.following,
   });
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
   
     if(name != null){
       result.addAll({'name': name});
     }
-    if(id != null){
-      result.addAll({'id': id});
+    if(userId != null){
+      result.addAll({'id': userId});
     }
     if(avatarUrl != null){
-      result.addAll({'avatarUrl': avatarUrl});
+      result.addAll({'avatar_url': avatarUrl});
     }
     if(htmlUrl != null){
-      result.addAll({'htmlUrl': htmlUrl});
+      result.addAll({'html_url': htmlUrl});
+    }
+    if(bio != null){
+      result.addAll({'bio': bio});
     }
     if(publicRepos != null){
-      result.addAll({'publicRepos': publicRepos});
+      result.addAll({'public_repos': publicRepos});
     }
     if(publicGists != null){
-      result.addAll({'publicGists': publicGists});
+      result.addAll({'public_gists': publicGists});
     }
     if(followers != null){
       result.addAll({'followers': followers});
@@ -54,11 +58,12 @@ class GithubUser {
   factory GithubUser.fromJson(Map<String, dynamic> map) {
     return GithubUser(
       name: map['name'],
-      id: map['id']?.toInt(),
-      avatarUrl: map['avatarUrl'],
-      htmlUrl: map['htmlUrl'],
-      publicRepos: map['publicRepos']?.toInt(),
-      publicGists: map['publicGists']?.toInt(),
+      userId: map['id']?.toInt(),
+      avatarUrl: map['avatar_url'],
+      htmlUrl: map['html_url'],
+      bio: map['bio'],
+      publicRepos: map['public_repos']?.toInt(),
+      publicGists: map['public_gists']?.toInt(),
       followers: map['followers']?.toInt(),
       following: map['following']?.toInt(),
     );

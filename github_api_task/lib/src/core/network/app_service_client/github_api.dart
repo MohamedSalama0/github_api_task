@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:github_api_task/models/follower_model.dart';
-import 'package:github_api_task/models/github_user_model.dart';
+import 'package:github_api_task/src/models/follower_model.dart';
+import 'package:github_api_task/src/models/github_user_model.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'github_api.g.dart';
@@ -10,9 +10,9 @@ abstract class AppServiceClient {
   factory AppServiceClient(Dio dio, {String baseUrl}) = _AppServiceClient;
 
   @GET("/users/{username}/followers")
-  Future<List<FollowerModel>> getUserFollowers(
+  Future<List<Follower>> getUserFollowers(
     @Path("username") String username,
-    @Query("per_page") int page,
+    @Query("page") int page,
   );
 
   @GET("/users/{username}")

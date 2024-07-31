@@ -21,29 +21,29 @@ class _AppServiceClient implements AppServiceClient {
   String? baseUrl;
 
   @override
-  Future<List<FollowerModel>> getUserFollowers(
+  Future<List<Follower>> getUserFollowers(
     String username,
     int page,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'per_page': page};
+    final queryParameters = <String, dynamic>{r'page': page};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<FollowerModel>>(Options(
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<Follower>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/search/users/${username}/followers',
+              '/users/${username}/followers',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
-        .map((dynamic i) => FollowerModel.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => Follower.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
