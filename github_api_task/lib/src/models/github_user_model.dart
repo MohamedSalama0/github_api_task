@@ -1,7 +1,7 @@
-
 class GithubUser {
+  final int? id;
   final String? name;
-  final int? userId;
+  final int? isFavorite;
   final String? avatarUrl;
   final String? htmlUrl;
   final String? bio;
@@ -10,8 +10,9 @@ class GithubUser {
   final int? followers;
   final int? following;
   GithubUser({
+    this.id,
     this.name,
-    this.userId,
+    this.isFavorite,
     this.avatarUrl,
     this.htmlUrl,
     this.bio,
@@ -21,44 +22,48 @@ class GithubUser {
     this.following,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap({required bool isFav}) {
     final result = <String, dynamic>{};
-  
-    if(name != null){
+
+    if (id != null) {
+      result.addAll({'id': id});
+    }
+    if (name != null) {
       result.addAll({'name': name});
     }
-    if(userId != null){
-      result.addAll({'id': userId});
+    if (isFavorite != null) {
+      result.addAll({'is_favorite': isFav?1:0});
     }
-    if(avatarUrl != null){
+    if (avatarUrl != null) {
       result.addAll({'avatar_url': avatarUrl});
     }
-    if(htmlUrl != null){
+    if (htmlUrl != null) {
       result.addAll({'html_url': htmlUrl});
     }
-    if(bio != null){
+    if (bio != null) {
       result.addAll({'bio': bio});
     }
-    if(publicRepos != null){
+    if (publicRepos != null) {
       result.addAll({'public_repos': publicRepos});
     }
-    if(publicGists != null){
+    if (publicGists != null) {
       result.addAll({'public_gists': publicGists});
     }
-    if(followers != null){
+    if (followers != null) {
       result.addAll({'followers': followers});
     }
-    if(following != null){
+    if (following != null) {
       result.addAll({'following': following});
     }
-  
+
     return result;
   }
 
   factory GithubUser.fromJson(Map<String, dynamic> map) {
     return GithubUser(
+      id: map['id']?.toInt(),
       name: map['name'],
-      userId: map['id']?.toInt(),
+      isFavorite: map['is_favorite'] ?? 0,
       avatarUrl: map['avatar_url'],
       htmlUrl: map['html_url'],
       bio: map['bio'],
@@ -68,5 +73,4 @@ class GithubUser {
       following: map['following']?.toInt(),
     );
   }
-
 }

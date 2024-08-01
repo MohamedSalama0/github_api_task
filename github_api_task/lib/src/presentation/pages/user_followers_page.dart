@@ -130,8 +130,14 @@ class _UserFollowersViewState extends State<UserFollowersView> {
               final follower = state.followers[index];
               return GestureDetector(
                 onTap: () {
-                  pushNamed(context, UserDetailsPage.routeName,
-                      arguments: follower.login);
+                  pushNamed(
+                    context,
+                    UserDetailsPage.routeName,
+                    arguments: {
+                      'userName': follower.login,
+                      'index':index,
+                    },
+                  );
                 },
                 child: Column(
                   children: [

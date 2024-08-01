@@ -11,6 +11,9 @@ sealed class UserDetailsState extends Equatable {
 class UserDetailsLoading extends UserDetailsState {
   const UserDetailsLoading();
 }
+class FavoriteButtonState extends UserDetailsState {
+  const FavoriteButtonState();
+}
 
 class UserDetailsLoaded extends UserDetailsState {
   final GithubUser user;

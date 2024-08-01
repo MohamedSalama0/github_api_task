@@ -35,6 +35,24 @@ class TimeoutFailure extends Failure {
   @override
   String get failMsg => error ?? 'Server timeout!';
 }
+class GetLocalDataFailure extends Failure {
+  const GetLocalDataFailure([super.error]);
+
+  @override
+  String get failMsg => error ?? 'Error in get local data!';
+}
+class AddLocalDataFailure extends Failure {
+  const AddLocalDataFailure([super.error]);
+
+  @override
+  String get failMsg => error ?? 'Error in add local data!';
+}
+class DeleteLocalDataFailure extends Failure {
+  const DeleteLocalDataFailure([super.error]);
+
+  @override
+  String get failMsg => error ?? 'Error in delete local data!';
+}
 
 class ServerFailure extends Failure {
   const ServerFailure([super.error]);

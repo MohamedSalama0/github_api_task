@@ -20,8 +20,8 @@ class RoutesHelper {
           case SearchUserPage.routeName:
             return const SearchUserPage();
           case UserDetailsPage.routeName:
-                  var arg = settings.arguments as String;
-            return UserDetailsPage(username: arg,);
+                  var arg = settings.arguments as Map<String,dynamic>;
+            return UserDetailsPage(username: arg['userName'],index: arg['index'],);
           case UserFollowersPage.routeName:
             var arg = settings.arguments as String;
             return UserFollowersPage(username: arg);

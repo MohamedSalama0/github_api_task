@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:github_api_task/src/data/data_source/local_data_source.dart';
+import 'package:github_api_task/src/features/favorites/data/data%20source/local_data_source.dart';
 import 'package:github_api_task/src/logic/repositories/github_user_repo.dart';
 import 'package:github_api_task/src/models/github_user_model.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -28,13 +28,13 @@ class UserDetailsCubit extends Cubit<UserDetailsState> {
     );
   }
 
-  
   toggleFavorite(GithubUser user) async {
-    if (await dbHelper.isFavorite(user.userId!)) {
-      await dbHelper.deleteFavorite(user.userId!);
+    if (await dbHelper.isFavorite(user.id!)) {
+      await dbHelper.deleteFavorite(user.id!);
     } else {
       await dbHelper.addFavorite(user);
     }
+    emit(const FavoriteButtonState());
   }
 
   urlLauncher(String url) async {

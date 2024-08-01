@@ -5,7 +5,7 @@ import 'package:github_api_task/src/core/di/injection_container.dart';
 import 'package:github_api_task/src/core/resources/app_colors.dart';
 import 'package:github_api_task/src/core/resources/style_manager.dart';
 import 'package:github_api_task/src/core/utils/router.dart';
-import 'package:github_api_task/src/data/data_source/local_data_source.dart';
+import 'package:github_api_task/src/features/favorites/data/data%20source/local_data_source.dart';
 import 'package:github_api_task/src/presentation/pages/bottom_nav_bar/bottom_nav_bar_view.dart';
 
 void main() async{

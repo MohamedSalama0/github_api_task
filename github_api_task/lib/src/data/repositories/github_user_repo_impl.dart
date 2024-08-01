@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:github_api_task/src/core/errors/error_handler.dart';
 import 'package:github_api_task/src/core/errors/failures.dart';
-import 'package:github_api_task/src/data/data_source/remote_data_source.dart';
+import 'package:github_api_task/src/data/data%20source/remote_data_source.dart';
 import 'package:github_api_task/src/logic/repositories/github_user_repo.dart';
 import 'package:github_api_task/src/models/follower_model.dart';
 import 'package:github_api_task/src/models/github_user_model.dart';

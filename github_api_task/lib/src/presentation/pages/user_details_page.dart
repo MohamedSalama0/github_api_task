@@ -6,25 +6,33 @@ import 'package:github_api_task/src/core/di/injection_container.dart';
 import 'package:github_api_task/src/core/resources/app_colors.dart';
 import 'package:github_api_task/src/core/resources/app_size_config.dart';
 import 'package:github_api_task/src/core/resources/style_manager.dart';
-import 'package:github_api_task/src/data/data_source/local_data_source.dart';
+import 'package:github_api_task/src/features/favorites/logic/favorites/cubit/favorites_cubit.dart';
 import 'package:github_api_task/src/logic/user_details/cubit/user_details_cubit.dart';
 
 class UserDetailsPage extends StatelessWidget {
-  const UserDetailsPage({super.key, required this.username});
+  const UserDetailsPage(
+      {super.key, required this.username, required this.index});
   final String username;
+  final int index;
+
   static const String routeName = '/user_details_page';
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<UserDetailsCubit>()..getUserInfo(username),
-      child: UserDetailsView(username: username),
+      child: UserDetailsView(
+        username: username,
+        index: index,
+      ),
     );
   }
 }
 
 class UserDetailsView extends StatelessWidget {
-  const UserDetailsView({super.key, required this.username});
+  const UserDetailsView(
+      {super.key, required this.username, required this.index});
   final String username;
+  final int index;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,11 +40,10 @@ class UserDetailsView extends StatelessWidget {
         appBar: AppBar(title: Text(username)),
         body: BlocBuilder<UserDetailsCubit, UserDetailsState>(
           builder: (context, state) {
-
             if (state is UserDetailsLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is UserDetailsLoaded) {
-         
+              final user = state.user;
               return Column(
                 children: [
                   ListTile(
@@ -45,17 +52,28 @@ class UserDetailsView extends StatelessWidget {
                       radius: 40,
                       backgroundImage: NetworkImage(state.user.avatarUrl!),
                     ),
-                    trailing: InkWell(
-                      onTap: () {
-                        context
-                            .read<UserDetailsCubit>()
-                            .toggleFavorite(state.user);
-                      },
-                      child: 
-                      const Icon(
-                              Icons.star_border,
-                              color: AppTheme.white,
-                            ),
+                    trailing: BlocProvider(
+                      create: (context) => sl<FavoriteCubit>(),
+                      child: BlocBuilder<FavoriteCubit, FavoriteState>(
+                        builder: (context, state) {
+                          return InkWell(
+                            onTap: () {
+                             context
+                                  .read<FavoriteCubit>()
+                                  .toggleFavorite(user);
+                            },
+                            child: user.isFavorite ==0
+                                ? const Icon(
+                                    Icons.star_border,
+                                    color: AppTheme.white,
+                                  )
+                                : const Icon(
+                                    Icons.star_purple500_outlined,
+                                    color: AppTheme.primaryColor,
+                                  ),
+                          );
+                        },
+                      ),
                     ),
                     title: Text(
                       state.user.name ?? '',
